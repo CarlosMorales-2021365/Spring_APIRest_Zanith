@@ -12,24 +12,37 @@ import com.anonymous.zanithresort.repository.RoomsRepository;
 
 public class RoomsService implements IRoomsService {
 
-
     @Autowired
     private RoomsRepository roomsRepository;
+
     @Override
     public List<Rooms> listRooms() {
         return roomsRepository.findAll();
     }
 
     @Override
-    public Rooms findRooms() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findRooms'");
+    public Rooms findRooms(Long idRoom) {
+        Rooms rooms = roomsRepository.findById(idRoom).orElse(null);
+        return rooms;
     }
 
     @Override
-    public Rooms saveRooms() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveRooms'");
+    public Rooms saveRooms(Rooms rooms) {
+       return roomsRepository.save(rooms);
     }
+
+    
+
+
+
+    
+
+
+
+   
+
+
+
+
 
 }

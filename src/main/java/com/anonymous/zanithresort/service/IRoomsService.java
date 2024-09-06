@@ -8,7 +8,7 @@ public interface IRoomsService {
 
     public List<Rooms> listRooms();
 
-    public Rooms findRooms();
+    public Rooms findRooms(Long idRoom);
 
-    public Rooms saveRooms();
+    public Rooms saveRooms(Rooms rooms);
 }
