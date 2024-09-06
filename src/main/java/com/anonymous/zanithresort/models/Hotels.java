@@ -19,7 +19,7 @@ public class Hotels {
     @Id
     @Column(name = "hotel_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int hotel_id;
+    private Integer hotel_id;
     private String name;
     private String direction;
     private int category;
