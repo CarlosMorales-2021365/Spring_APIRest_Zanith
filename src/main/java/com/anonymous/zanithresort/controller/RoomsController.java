@@ -39,16 +39,32 @@ public List<Rooms> getRoom(){
 public Rooms addRoom(@RequestBody Rooms rooms){
     logger.info("Habitacion agregada"+rooms);
     return iRoomsService.saveRooms(rooms);
+
 }
 
+@GetMapping("/buscar/{idRoom}")
+ public ResponseEntity<Rooms> findRooms(@PathVariable Long idRoom){
+    Rooms rooms = iRoomsService.findRooms(idRoom);
+    if(rooms==null)
+    throw new RoomsException("No se encontro la habitacion");
+    return ResponseEntity.ok(rooms);
+ } 
 
 
-@PatchMapping("/rooms/{description}")
+@PatchMapping("/editrooms/{idRoom}")
 public ResponseEntity <Rooms> editRoom(@PathVariable Long idRoom,@RequestBody Rooms roomReceived){
     Rooms rooms = iRoomsService.findRooms(idRoom);
     if(rooms == null)
     throw new RoomsException("El id recibido no exixte");
+    rooms.setIdRoom(roomReceived.getIdRoom());
+    rooms.setRoomType(roomReceived.getRoomType());
+    rooms.setCost(roomReceived.getCost());
+    rooms.setCapacity(roomReceived.getCapacity());
+    rooms.setAvailability(roomReceived.getAvailability());
     rooms.setDescription(roomReceived.getDescription());
+    rooms.setStarDate(roomReceived.getStarDate());
+    rooms.setEndDate(roomReceived.getEndDate());
+    iRoomsService.saveRooms(rooms);
     return ResponseEntity.ok(rooms);
 }
 
