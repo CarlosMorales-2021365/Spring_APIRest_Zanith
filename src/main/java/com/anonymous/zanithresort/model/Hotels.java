@@ -1,4 +1,4 @@
-package com.anonymous.zanithresort.models;
+package com.anonymous.zanithresort.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

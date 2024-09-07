@@ -1,7 +1,7 @@
-package com.anonymous.zanithresort.services;
+package com.anonymous.zanithresort.service;
 import java.util.List;
 
-import com.anonymous.zanithresort.models.Hotels;
+import com.anonymous.zanithresort.model.Hotels;
 public interface IHotelService {
 
     public List <Hotels> listHotels();

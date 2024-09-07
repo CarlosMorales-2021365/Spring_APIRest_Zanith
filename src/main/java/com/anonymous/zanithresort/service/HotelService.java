@@ -1,12 +1,12 @@
-package com.anonymous.zanithresort.services;
+package com.anonymous.zanithresort.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.anonymous.zanithresort.Repository.HotelRepository;
-import com.anonymous.zanithresort.models.Hotels;
+import com.anonymous.zanithresort.model.Hotels;
+import com.anonymous.zanithresort.repository.HotelRepository;
 
 @Service
 public class HotelService implements IHotelService {
@@ -16,7 +16,7 @@ public class HotelService implements IHotelService {
 
     @Override
     public List<Hotels> listHotels() {
-        return hotelRepository.findAll();
+return hotelRepository.findAll();
     }
 
     @Override

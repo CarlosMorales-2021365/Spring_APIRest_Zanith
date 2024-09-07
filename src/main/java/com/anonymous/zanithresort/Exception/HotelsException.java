@@ -1,4 +1,4 @@
-package com.anonymous.zanithresort.Exceptions;
+package com.anonymous.zanithresort.Exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
