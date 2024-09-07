@@ -17,11 +17,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+<<<<<<< HEAD
 import com.anonymous.zanithresort.exception.HotelsException;
 import com.anonymous.zanithresort.model.Hotels;
 import com.anonymous.zanithresort.service.IHotelService;
 
 @RestController // http://localhost:8081/Hotels
+=======
+
+import com.anonymous.zanithresort.Exception.HotelsException;
+import com.anonymous.zanithresort.service.IHotelService;
+import com.anonymous.zanithresort.model.Hotels;
+
+@RestController // http://localhost:8085/hotels
+>>>>>>> origin/developer
 
 @RequestMapping("/Hotels/v1")
 public class HotelsController {

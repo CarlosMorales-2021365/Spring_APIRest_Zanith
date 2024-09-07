@@ -7,11 +7,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+<<<<<<< HEAD
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 
+=======
+import jakarta.persistence.Table;
+import lombok.Data;
+
+>>>>>>> origin/developer
 @Entity
 @Data
 @Table(name="rooms")
@@ -28,7 +34,13 @@ public class Rooms implements Serializable {
     private Date endDate;
 
 
+<<<<<<< HEAD
     @ManyToOne //(mappedBy = "idRoom")
     private Hotels hotels;
 
+=======
+    // @OneToMany
+    // Private Hotel hotel;
+    
+>>>>>>> origin/developer
 }
