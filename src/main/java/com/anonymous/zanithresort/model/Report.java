@@ -1,4 +1,4 @@
-package com.anonymous.zanithresort.models;
+package com.anonymous.zanithresort.model;
 
 import java.io.Serializable;
 import java.sql.Date;
