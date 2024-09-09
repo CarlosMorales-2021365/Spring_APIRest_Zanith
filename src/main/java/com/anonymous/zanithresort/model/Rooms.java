@@ -26,7 +26,7 @@ public class Rooms implements Serializable {
     private Date endDate;
 
 
-    // @OneToMany
-    // Private Hotel hotel;
+     // @ManyToOne //(mappedBy = "idRoom")
+    // private Hotels hotels;
     
 }
