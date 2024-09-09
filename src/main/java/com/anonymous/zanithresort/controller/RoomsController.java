@@ -57,13 +57,7 @@ public ResponseEntity <Rooms> editRoom(@PathVariable Long idRoom,@RequestBody Ro
     if(rooms == null)
     throw new RoomsException("El id recibido no exixte");
     rooms.setIdRoom(roomReceived.getIdRoom());
-    rooms.setRoomType(roomReceived.getRoomType());
-    rooms.setCost(roomReceived.getCost());
-    rooms.setCapacity(roomReceived.getCapacity());
     rooms.setAvailability(roomReceived.getAvailability());
-    rooms.setDescription(roomReceived.getDescription());
-    rooms.setStarDate(roomReceived.getStarDate());
-    rooms.setEndDate(roomReceived.getEndDate());
     iRoomsService.saveRooms(rooms);
     return ResponseEntity.ok(rooms);
 }
