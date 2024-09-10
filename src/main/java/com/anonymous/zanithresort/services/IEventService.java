@@ -1,14 +1,15 @@
 package com.anonymous.zanithresort.services;
 
 import java.util.List;
-import com.anonymous.zanithresort.models.Event;
+
+import com.anonymous.zanithresort.model.Event;
 
 public interface IEventService {
-    public List <Event> listHotels();
+    public List <Events> listEvent();
 
-    public Event findEvent (Integer id_Event);
+    public Events findEvent (Integer id_Event);
 
-    public Event saveEvent (Event events);
+    public Events saveEvent (Event events);
 
     public void deleteEvent(Event events);
 
