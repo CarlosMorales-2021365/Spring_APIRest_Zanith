@@ -17,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import com.anonymous.zanithresort.Exception.HotelsException;
 import com.anonymous.zanithresort.service.IHotelService;
+import com.anonymous.zanithresort.exception.HotelsException;
 import com.anonymous.zanithresort.model.Hotels;
 
-@RestController // http://localhost:8085/hotels
+@RestController // http://localhost:8085/Zanith
 
-@RequestMapping("/Hotels/v1")
+@RequestMapping("/Zanith/v1")
 public class HotelsController {
 
     private static final Logger logger = LoggerFactory.getLogger(HotelsController.class);
