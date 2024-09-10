@@ -1,7 +1,7 @@
 package com.anonymous.zanithresort.services;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
@@ -26,9 +26,9 @@ public class CloudinaryService {
 
         String newName = originalFilename.substring(0,originalFilename.lastIndexOf('_'));
 
-        String timestasmp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
-        String fileName  = newName  + '_' + timestasmp;
+        String fileName  = newName  + '_' + timestamp;
 
         @SuppressWarnings("unchecked")
         Map<String, Object> uploadResult = (Map<String, Object>)cloudinary.uploader().upload(file.getBytes(),ObjectUtils.asMap(
