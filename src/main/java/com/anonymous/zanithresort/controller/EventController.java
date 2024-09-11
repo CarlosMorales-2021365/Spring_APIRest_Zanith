@@ -36,9 +36,19 @@ public class EventController {
     private IEventService iEventService;
 
     @GetMapping("/ListEvents")
-    public List<Event> listEvents() {
+    public List<Event> listEvent() {
         var event2 = iEventService.listEvent();
         event2.forEach(events -> logger.info(events.toString()));
         return event2;
+
+    }
+
+    @GetMapping("/FindEvents/{id_Event}")
+    public ResponseEntity<Event> findHotel(@PathVariable Integer id_Event) {
+        Event events = iEventService.findEvent(id_Event);
+        if (id_Event == null)
+            throw new EventException("No se encuentra el evento");
+        return ResponseEntity.ok(events);
+    }
 
 }
