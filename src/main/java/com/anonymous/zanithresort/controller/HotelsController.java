@@ -81,6 +81,7 @@ public class HotelsController {
                 hotels.setCategory(hotelsCheck.getCategory());
                 hotels.setDescription(hotelsCheck.getDescription());
                 hotels.setAverage_price(hotelsCheck.getAverage_price());
+                hotels.setPhoto(hotelsCheck.getPhoto());
                 iHotelService.saveHotel(hotels);
                 return ResponseEntity.ok(hotels);
        
