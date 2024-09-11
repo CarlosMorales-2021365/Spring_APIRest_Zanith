@@ -44,7 +44,7 @@ public class EventController {
     }
 
     @GetMapping("/FindEvents/{id_Event}")
-    public ResponseEntity<Event> findHotel(@PathVariable Integer id_Event) {
+    public ResponseEntity<Event> findEvent(@PathVariable Integer id_Event) {
         Event events = iEventService.findEvent(id_Event);
         if (id_Event == null)
             throw new EventException("No se encuentra el evento");
