@@ -15,25 +15,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "Bill")
+@Table(name = "bill")
 public class Bill implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_factura")
-    private Long idFactura;
-    private Long idReservacion;
-    private Double montoTotal;
-    private String descripcion;
-    private Date fechaEmision;
-
-
-    public Bill(Long idReservacion, Double montoTotal, String descripcion, Date fechaEmision) {
-        this.idReservacion = idReservacion;
-        this.montoTotal = montoTotal;
-        this.descripcion = descripcion;
-        this.fechaEmision = fechaEmision;
-    }    
-
+    @Column(name = "idbill")
+    private Long idbill;
+    private Long idreservation;
+    private Double amountTotal;
+    private String description;
+    private Date dateEmission;
 
 }

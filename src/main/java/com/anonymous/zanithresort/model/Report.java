@@ -15,17 +15,18 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "Report")
+@Table(name = "report")
 public class Report implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_reporte")
+    @Column(name = "idReport")
     private Long idReport;
-    private Long idHotel;
+    private Long idHotels;
     private String tipo;
     private Date fechaGeneracion;
-    private String descripcion;
+    private String description;
 
 
 }
+
