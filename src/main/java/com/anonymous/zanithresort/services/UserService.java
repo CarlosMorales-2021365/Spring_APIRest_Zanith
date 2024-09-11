@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.anonymous.zanithresort.models.User;
-import com.anonymous.zanithresort.repository.AuthRepository;
+import com.anonymous.zanithresort.repository.UserRepository;
 
 @Service
-public class AuthService implements IAuthService{ 
+public class UserService implements IUserService{ 
     @Autowired
-    private AuthRepository authRepository;
+    private UserRepository authRepository;
 
     @Override
     public User save (User user){

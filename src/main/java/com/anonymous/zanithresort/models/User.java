@@ -17,7 +17,7 @@ import lombok.Data;
 public class User implements Serializable {
     @Id
     @Column(name = "id")
-    private long id;
+    private String id;
 
     @Email(message = "Ingresa Direccion de correo Valida")
     @Column(unique = true)
@@ -39,6 +39,8 @@ public class User implements Serializable {
     private String role;
     private String urlProfilePhoto;
 
+ 
+
     public User(UserRegisterDTO userDTO, String img) {
         this.email = userDTO.getEmail();
         this.username = userDTO.getUsername();
@@ -49,4 +51,6 @@ public class User implements Serializable {
         this.phone = userDTO.getPhone();
         this.urlProfilePhoto = img;
     }
+
+
 }
