@@ -24,6 +24,7 @@ public class Rooms implements Serializable {
     private String description;
     private Date starDate;
     private Date endDate;
+    private String photo;
 
 
      // @ManyToOne 
