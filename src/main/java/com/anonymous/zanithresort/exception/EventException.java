@@ -10,5 +10,4 @@ public class EventException extends RuntimeException {
         super(mensaje);
         
     }
-
 }
