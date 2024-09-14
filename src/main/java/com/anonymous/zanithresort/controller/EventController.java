@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,13 +42,29 @@ public class EventController {
         if (id_Event == null)
             throw new EventException("No se encuentra el evento");
         return ResponseEntity.ok(events);
-        
+
     }
 
     @PostMapping("/AddEvents") 
     public Event addEvents(@RequestBody Event event){
         logger.info("Evento agregado" + event);
         return iEventService.addEvent(event);
+
+    }
+
+    @PatchMapping("/UpdateEvents/{id_Event}")
+    public ResponseEntity <Event> editEvent(@PathVariable int id_Event, @RequestBody Event eventReceived){
+        Event event = iEventService.findEvent(id_Event);
+        if (event == null)
+        throw new EventException("El id no existe");
+        event.setName_Event(eventReceived.getName_Event());
+        event.setStartTime_Event(eventReceived.getStartTime_Event());
+        event.setEndTime_Event(eventReceived.getEndTime_Event());
+        event.setDescription_Event(eventReceived.getDescription_Event());
+        event.setState_Event(eventReceived.getState_Event());
+        event.setCapacity_Event(eventReceived.getCapacity_Event());
+        return ResponseEntity.ok(event);
+
     }
 }
 
