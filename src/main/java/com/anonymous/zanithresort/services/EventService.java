@@ -24,16 +24,19 @@ public class EventService implements IEventService {
     public Event findEvent(Integer id_Event) {
         Event events = eventRepository.findById(id_Event).orElse(null);
         return events;
+
     }
 
     @Override
-    public Event saveEvent(Event events) {
+    public Event addEvent(Event events) {
         return eventRepository.save(events);
+
     }
 
     @Override
     public void deleteEvent(Event events) {
         eventRepository.delete(events);
+        
     }
 
 }

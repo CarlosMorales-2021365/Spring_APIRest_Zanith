@@ -3,8 +3,6 @@ package com.anonymous.zanithresort.model;
 import java.io.Serializable;
 import java.sql.Date;
 
-import com.anonymous.zanithresort.utils.Status;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
