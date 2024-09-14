@@ -1,12 +1,14 @@
 package com.anonymous.zanithresort.controller;
 
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -66,6 +68,18 @@ public class EventController {
         return ResponseEntity.ok(event);
 
     }
+
+    @DeleteMapping("/DeleteEvent/{id_Event}")
+    public ResponseEntity<Map<String, Boolean>> deleteEvent(@PathVariable Integer id_Event) {
+        Event events = iEventService.findEvent(id_Event);
+        if (events == null)
+            throw new EventException("El evento no existe");
+        iEventService.deleteEvent(events);
+    
+        Map<String, Boolean> respuesta = new HashMap<>();
+        respuesta.put("eliminado", true);
+        return ResponseEntity.ok(respuesta);
+    }    
 }
 
 
