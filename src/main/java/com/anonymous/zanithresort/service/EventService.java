@@ -1,4 +1,4 @@
-package com.anonymous.zanithresort.services;
+package com.anonymous.zanithresort.service;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class EventService implements IEventService {
     }
 
     @Override
-    public Event addEvent(Event events) {
+    public Event saveEvent(Event events) {
         return eventRepository.save(events);
 
     }

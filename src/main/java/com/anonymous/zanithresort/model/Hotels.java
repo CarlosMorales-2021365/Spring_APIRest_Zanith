@@ -25,9 +25,4 @@ public class Hotels {
     private int category;
     private String description;
     private double average_price;
-<<<<<<< HEAD
-
-=======
- 
->>>>>>> origin/developer
 }

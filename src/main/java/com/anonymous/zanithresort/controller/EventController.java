@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.anonymous.zanithresort.exception.EventException;
 import com.anonymous.zanithresort.model.Event;
-import com.anonymous.zanithresort.services.IEventService;
+import com.anonymous.zanithresort.service.IEventService;
 
-@RestController //http://localhost:8085/Zanith
+@RestController //http://localhost:8085/
 @RequestMapping("/Events/v1")
 public class EventController {
     
@@ -47,10 +47,10 @@ public class EventController {
 
     }
 
-    @PostMapping("/AddEvents") 
+    @PostMapping("/addEvents") 
     public Event addEvents(@RequestBody Event event){
         logger.info("Evento agregado" + event);
-        return iEventService.addEvent(event);
+        return iEventService.saveEvent(event);
 
     }
 
@@ -65,6 +65,7 @@ public class EventController {
         event.setDescription_Event(eventReceived.getDescription_Event());
         event.setState_Event(eventReceived.getState_Event());
         event.setCapacity_Event(eventReceived.getCapacity_Event());
+        iEventService.saveEvent(event);
         return ResponseEntity.ok(event);
 
     }

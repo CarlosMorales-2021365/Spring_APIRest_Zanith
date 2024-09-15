@@ -1,4 +1,4 @@
-package com.anonymous.zanithresort.services;
+package com.anonymous.zanithresort.service;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public interface IEventService {
 
     public Event findEvent (Integer id_Event);
 
-    public Event addEvent (Event events);
+    public Event saveEvent (Event events);
 
     public void deleteEvent(Event events);
 
