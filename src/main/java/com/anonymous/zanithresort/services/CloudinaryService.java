@@ -17,14 +17,14 @@ public class CloudinaryService {
     @Autowired
     private Cloudinary cloudinary;
 
-    public Map<String, Object> UploadImg(MultipartFile file, String folder)throws IOException{
+    public Map<String, Object> uploadImg(MultipartFile file, String folder)throws IOException{
         String originalFilename = file.getOriginalFilename();
 
         if (originalFilename == null){
             throw new IllegalArgumentException("No puede ser nulo el archivo");
         }
 
-        String newName = originalFilename.substring(0,originalFilename.lastIndexOf('_'));
+        String newName = originalFilename.substring(0,originalFilename.lastIndexOf('.'));
 
         String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 

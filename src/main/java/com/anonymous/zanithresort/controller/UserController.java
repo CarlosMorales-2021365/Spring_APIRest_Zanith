@@ -42,7 +42,7 @@ public class UserController {
     @Autowired
     CloudinaryService cloudinaryService;
 
-    @PostMapping("/ListaUsuarios")
+    @PostMapping("/ListaUsuarios") 
     public ResponseEntity<?> ListaUsuarios(
             @RequestPart("profilePicture") MultipartFile profilePicture,
             @Valid @ModelAttribute UserRegisterDTO userDto,
@@ -60,7 +60,7 @@ public class UserController {
 
         try {
             logger.info("Enviando Archivado a Cloudinary");
-            Map<String, Object> uploadResult = cloudinaryService.UploadImg(profilePicture, "profiles");
+            Map<String, Object> uploadResult = cloudinaryService.uploadImg(profilePicture, "profiles");
             String profilePhoto = uploadResult.get("url").toString();
             String img = profilePhoto.substring(profilePhoto.indexOf("profiles/"));
             User user = new User(userDto, img);
