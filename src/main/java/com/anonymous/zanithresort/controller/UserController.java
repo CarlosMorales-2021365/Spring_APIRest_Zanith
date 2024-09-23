@@ -24,9 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.anonymous.zanithresort.DTOs.UserRegisterDTO;
-import com.anonymous.zanithresort.models.User;
-import com.anonymous.zanithresort.services.CloudinaryService;
-import com.anonymous.zanithresort.services.UserService;
+import com.anonymous.zanithresort.model.User;
+import com.anonymous.zanithresort.service.CloudinaryService;
+import com.anonymous.zanithresort.service.UserService;
 import com.anonymous.zanithresort.utils.PasswordEncrypt;
 
 import jakarta.validation.Valid;
