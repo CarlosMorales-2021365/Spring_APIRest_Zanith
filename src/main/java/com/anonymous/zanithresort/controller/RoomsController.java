@@ -56,7 +56,7 @@ public List<Rooms> getRoom(){
 
 @PostMapping("/addRoom")
 public ResponseEntity<?> addRoom(
-    @RequestPart("picture") MultipartFile picture,
+    @RequestPart("photo") MultipartFile picture,
     @Valid @ModelAttribute AddRoomDTO addRoomDTO,
     BindingResult result){
     

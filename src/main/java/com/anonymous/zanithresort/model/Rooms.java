@@ -1,7 +1,6 @@
 package com.anonymous.zanithresort.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 import com.anonymous.zanithresort.DTOs.AddRoomDTO;
 
@@ -26,8 +25,8 @@ public class Rooms implements Serializable {
     private String capacity;
     private String availability;
     private String description;
-    private Date starDate;
-    private Date endDate;
+    private String starDate;
+    private String endDate;
     private String photo;
 
     public Rooms(AddRoomDTO addRoomDTO, String img){
