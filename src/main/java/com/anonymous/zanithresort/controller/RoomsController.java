@@ -18,9 +18,9 @@ import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -113,13 +113,14 @@ public ResponseEntity<?> addRoom(
  } 
 
 
-@PatchMapping("/editrooms/{idRoom}")
+@PutMapping("/editrooms/{idRoom}")
 public ResponseEntity <Rooms> editRoom(@PathVariable Long idRoom,@RequestBody Rooms roomReceived){
     Rooms rooms = RoomsService.findRooms(idRoom);
     if(rooms == null)
     throw new RoomsException("El id recibido no exixte");
-    rooms.setIdRoom(roomReceived.getIdRoom());
     rooms.setAvailability(roomReceived.getAvailability());
+    rooms.setStarDate(roomReceived.getStarDate());
+    rooms.setEndDate(roomReceived.getEndDate());
     RoomsService.saveRooms(rooms);
     return ResponseEntity.ok(rooms);
 }
