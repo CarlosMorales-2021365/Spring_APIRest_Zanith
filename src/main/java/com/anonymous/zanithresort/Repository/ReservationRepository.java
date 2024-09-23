@@ -1,4 +1,4 @@
-package com.anonymous.zanithresort.Repository;
+package com.anonymous.zanithresort.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
