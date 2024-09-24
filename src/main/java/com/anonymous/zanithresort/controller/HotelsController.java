@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
 import com.anonymous.zanithresort.exception.HotelsException;
-import com.anonymous.zanithresort.service.IHotelService;
 import com.anonymous.zanithresort.model.Hotels;
+import com.anonymous.zanithresort.service.IHotelService;
 
-@RestController // http://localhost:8085/Zanith
+
+@RestController // http://localhost:8081/Zanith
 
 @RequestMapping("/Zanith/v1")
 public class HotelsController {

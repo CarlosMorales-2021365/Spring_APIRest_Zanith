@@ -27,4 +27,5 @@ public class Hotels {
     private double average_price;
     private String photo;
  
+
 }

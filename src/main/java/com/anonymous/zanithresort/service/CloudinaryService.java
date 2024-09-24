@@ -15,30 +15,30 @@ import com.cloudinary.utils.ObjectUtils;
 @Service
 public class CloudinaryService {
 
-    @Autowired
-    private Cloudinary cloudinary;
+@Autowired
+private Cloudinary cloudinary;
 
-    public Map<String, Object> uploadImg(MultipartFile file, String folder) throws IOException{
-        String originalFilename = file.getOriginalFilename();
+public Map<String, Object> uploadImg(MultipartFile file, String folder) throws IOException{
+    String originalFilename = file.getOriginalFilename();
 
-        if(originalFilename == null){
-            throw new IllegalArgumentException("El archivo no puede estar nulo");
-        }
+    if(originalFilename == null){
+        throw new IllegalArgumentException("El archivo no puede estar nulo");
 
-        String newName = originalFilename.substring(0, originalFilename.lastIndexOf('.'));
-
-        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-
-        String fileName = newName + "_" + timestamp;
-
-        @SuppressWarnings( "unchecked")
-        Map<String, Object> uploadResult = (Map<String, Object>)cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
-            "folder", folder,
-            "public_id", fileName
-        ));
-
-        return uploadResult;
     }
-       
-    
+
+    String newName = originalFilename.substring(0, originalFilename.lastIndexOf('.'));
+
+    String timeStam = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+
+    String fileName = newName + "_"+timeStam;
+
+    @SuppressWarnings("unchheked")
+    Map<String, Object> uploadResult = (Map<String, Object>)cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
+        "folder",folder,
+        "public_id" ,fileName
+    ));
+
+    return uploadResult;
+}
+
 }
