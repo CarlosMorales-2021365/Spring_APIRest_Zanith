@@ -30,6 +30,7 @@ public class Rooms implements Serializable {
     private String endDate;
     private String photo;
 
+
     public Rooms(AddRoomDTO addRoomDTO, String img){
         this.roomType = addRoomDTO.getRoomType();
         this.cost = addRoomDTO.getCost();
@@ -41,7 +42,7 @@ public class Rooms implements Serializable {
         this.photo = img;
     }
 
-    @ManyToOne //(mappedBy = "idRoom")
-    private Hotels hotels;
+    //@ManyToOne
+    //private Hotels hotels;
 
 }
