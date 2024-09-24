@@ -1,4 +1,4 @@
-package com.anonymous.zanithresort.services;
+package com.anonymous.zanithresort.service;
 
 import java.util.List;
 

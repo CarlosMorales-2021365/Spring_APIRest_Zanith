@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.anonymous.zanithresort.exception.EventException;
 import com.anonymous.zanithresort.model.Event;
-import com.anonymous.zanithresort.services.IEventService;
+import com.anonymous.zanithresort.service.IEventService;
 
 @RestController //http://localhost:8085/Zanith
 @RequestMapping("/Events/v1")
