@@ -29,9 +29,9 @@ public class Reservation implements Serializable{
     private Date dateCheckOut;
     private int totalPrice;
 
-    @ManyToOne
-    private Room room;
+ //   @ManyToOne
+ //   private Room room;
 
-    @ManyToOne
-    private User user; 
+ //   @ManyToOne
+ //   private User user; 
 }

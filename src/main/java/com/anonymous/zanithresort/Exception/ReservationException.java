@@ -9,4 +9,8 @@ public class ReservationException extends RuntimeException{
     public ReservationException(String mensaje){
         super(mensaje);
     }
+
+    public RoomException(String mensaje){
+        super(mensaje);
+    }
 }
