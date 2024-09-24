@@ -10,13 +10,14 @@
         <version>3.3.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
+  
     <groupId>com.anonymous</groupId>
     <artifactId>zanithresort</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ZanithResort</name>
     <description>Hotel for nice people</description>
     <url/>
+
 
     <licenses>
         <license/>
@@ -25,6 +26,7 @@
     <developers>
         <developer/>
     </developers>
+
 
     <scm>
         <connection/>
@@ -36,6 +38,8 @@
     <properties>
         <java.version>17</java.version>
     </properties>
+
+
 
     <dependencies>
         <dependency>

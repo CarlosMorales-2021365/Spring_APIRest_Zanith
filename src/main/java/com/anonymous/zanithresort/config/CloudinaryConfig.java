@@ -1,3 +1,4 @@
+
 package com.anonymous.zanithresort.config;
 
 import org.springframework.context.annotation.Bean;
@@ -18,3 +19,4 @@ public class CloudinaryConfig {
         ));
     }
 }
+

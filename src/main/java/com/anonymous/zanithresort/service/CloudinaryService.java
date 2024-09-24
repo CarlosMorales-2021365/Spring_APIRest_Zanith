@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 
+
 @Service
 public class CloudinaryService {
 @Autowired
@@ -39,4 +40,5 @@ public Map<String, Object> uploadImg(MultipartFile file, String folder) throws I
 
     return uploadResult;
 }
+
 }
