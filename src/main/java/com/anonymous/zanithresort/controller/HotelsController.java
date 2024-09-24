@@ -3,18 +3,52 @@ package com.anonymous.zanithresort.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+<<<<<<< HEAD
+import java.io.IOException;
+import java.util.UUID;
+import java.util.stream.Collectors;
+=======
+>>>>>>> b4bb9312c9fe8314d562c8d67feee6225a5bd33b
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.CannotCreateTransactionException;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+=======
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+>>>>>>> b4bb9312c9fe8314d562c8d67feee6225a5bd33b
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+<<<<<<< HEAD
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.HttpStatus;
+
+import com.anonymous.zanithresort.DTOs.HotelRegisterDTO;
+import com.anonymous.zanithresort.exception.HotelsException;
+import com.anonymous.zanithresort.service.CloudinaryService;
+import com.anonymous.zanithresort.service.HotelService;
+import com.anonymous.zanithresort.service.IHotelService;
+
+import jakarta.validation.Valid;
+
+import com.anonymous.zanithresort.model.Hotels;
+
+@RestController // http://localhost:8085/Zanith
+=======
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -24,6 +58,7 @@ import com.anonymous.zanithresort.service.IHotelService;
 
 
 @RestController // http://localhost:8081/Zanith
+>>>>>>> b4bb9312c9fe8314d562c8d67feee6225a5bd33b
 
 @RequestMapping("/Zanith/v1")
 public class HotelsController {
@@ -32,6 +67,14 @@ public class HotelsController {
 
     @Autowired
     private IHotelService iHotelService;
+<<<<<<< HEAD
+    @Autowired
+    private HotelService hotelService;
+
+    @Autowired
+    CloudinaryService cloudinaryService;
+=======
+>>>>>>> b4bb9312c9fe8314d562c8d67feee6225a5bd33b
 
     @GetMapping("/ListHotels")
 
@@ -43,10 +86,58 @@ public class HotelsController {
     }
 
     @PostMapping("/AddHotel")
+<<<<<<< HEAD
+    public ResponseEntity<?> addHotel(
+            @RequestPart("photo") MultipartFile profilePicture,
+            @Valid @ModelAttribute HotelRegisterDTO addhoteldto,
+            BindingResult result) {
+
+        Map<String, Object> res = new HashMap<>();
+
+        if (result.hasErrors()) {
+            List<String> errors = result.getFieldErrors().stream()
+            .map(error -> error.getDefaultMessage())
+            .collect(Collectors.toList());
+            res.put("Errores", errors);
+            return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+        }
+        try{
+            logger.info("Enviano el archivo a cloudinary");
+            Map<String, Object> uploadRersut = cloudinaryService.uploadImg(profilePicture, "perfiles");
+            String profilePhoto =uploadRersut.get("url").toString();
+            String img = profilePhoto.substring(profilePhoto.indexOf("perfiles/"));
+            Hotels hotels = new Hotels(addhoteldto, img);
+            hotels.setHotel_id(UUID.randomUUID().toString());
+            hotelService.saveHotel(hotels);
+            logger.info("Hotel agregado exitosamente");
+            res.put("Mensaje", "Hotel agregado exitosamente");
+            res.put("Hotel", hotels);
+            return new ResponseEntity<>(res,HttpStatus.CREATED);
+        }catch(IOException e){
+            logger.error("Error en entrada de archivo");
+            res.put("Mensaje", "Error al subir la imagen");
+            res.put("Error", e.getMessage());
+            return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }catch(CannotCreateTransactionException e){
+            logger.error("Error al procesar la transaccion");
+            res.put("Mensaje", "Error al crear la transaccion");
+            res.put("Error", e.getMessage());
+            return new ResponseEntity<>(res, HttpStatus.SERVICE_UNAVAILABLE); 
+
+        }catch(DataAccessException e ){
+            logger.error("Error al conectar a la base de datos");
+            res.put("Mensaje", "Error al conectar a la base de datos");
+            res.put("Error", e.getMessage());
+            return new ResponseEntity<>(res, HttpStatus.SERVICE_UNAVAILABLE);
+
+        }
+=======
     public Hotels saveHotel(@RequestBody Hotels hotels) {
         logger.info("Hotel agregado");
         return iHotelService.saveHotel(hotels);
 
+>>>>>>> b4bb9312c9fe8314d562c8d67feee6225a5bd33b
     }
 
     @GetMapping("/FindHotel/{hotel_id}")
@@ -73,6 +164,25 @@ public class HotelsController {
     }
 
     @PutMapping("/UpdateHotel/{hotel_id}")
+<<<<<<< HEAD
+    public ResponseEntity<Hotels> editarEmpleados(@PathVariable Integer hotel_id, @RequestBody Hotels hotelsCheck) {
+        Hotels hotels = iHotelService.findHotel(hotel_id);
+        if (hotels == null)
+            throw new HotelsException("El id recibido no existe");
+        {
+
+            hotels.setName(hotelsCheck.getName());
+            hotels.setDirection(hotelsCheck.getDirection());
+            hotels.setCategory(hotelsCheck.getCategory());
+            hotels.setDescription(hotelsCheck.getDescription());
+            hotels.setAverage_price(hotelsCheck.getAverage_price());
+            hotels.setPhoto(hotelsCheck.getPhoto());
+            iHotelService.saveHotel(hotels);
+            return ResponseEntity.ok(hotels);
+
+        }
+    }
+=======
         public ResponseEntity <Hotels> editarEmpleados (@PathVariable Integer hotel_id, @RequestBody Hotels hotelsCheck){
             Hotels hotels = iHotelService.findHotel(hotel_id);
             if (hotels == null)
@@ -89,4 +199,5 @@ public class HotelsController {
        
                 }
             }
+>>>>>>> b4bb9312c9fe8314d562c8d67feee6225a5bd33b
 }

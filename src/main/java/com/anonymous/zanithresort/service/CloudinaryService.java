@@ -15,6 +15,34 @@ import com.cloudinary.utils.ObjectUtils;
 @Service
 public class CloudinaryService {
 
+<<<<<<< HEAD
+    @Autowired
+    private Cloudinary cloudinary;
+
+    public Map<String, Object> uploadImg(MultipartFile file, String folder) throws IOException{
+        String originalFilename = file.getOriginalFilename();
+
+        if(originalFilename == null){
+            throw new IllegalArgumentException("El archivo no puede estar nulo");
+        }
+
+        String newName = originalFilename.substring(0, originalFilename.lastIndexOf('.'));
+
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+
+        String fileName = newName + "_" + timestamp;
+
+        @SuppressWarnings( "unchecked")
+        Map<String, Object> uploadResult = (Map<String, Object>)cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
+            "folder", folder,
+            "public_id", fileName
+        ));
+
+        return uploadResult;
+    }
+       
+    
+=======
 @Autowired
 private Cloudinary cloudinary;
 
@@ -41,4 +69,5 @@ public Map<String, Object> uploadImg(MultipartFile file, String folder) throws I
     return uploadResult;
 }
 
+>>>>>>> b4bb9312c9fe8314d562c8d67feee6225a5bd33b
 }
