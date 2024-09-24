@@ -1,8 +1,9 @@
 package com.anonymous.zanithresort.controller;
 
 import com.anonymous.zanithresort.DTOs.ServiceDTO;
-import com.anonymous.zanithresort.models.Service;
-import com.anonymous.zanithresort.services.ServiceService;
+import com.anonymous.zanithresort.model.Service;
+import com.anonymous.zanithresort.service.ServiceService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

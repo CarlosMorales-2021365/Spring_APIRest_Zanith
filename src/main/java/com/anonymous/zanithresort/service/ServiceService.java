@@ -1,6 +1,6 @@
-package com.anonymous.zanithresort.services;
+package com.anonymous.zanithresort.service;
 
-import com.anonymous.zanithresort.models.Service;
+import com.anonymous.zanithresort.model.Service;
 import com.anonymous.zanithresort.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 

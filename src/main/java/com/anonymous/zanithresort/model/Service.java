@@ -1,4 +1,4 @@
-package com.anonymous.zanithresort.models;
+package com.anonymous.zanithresort.model;
 
 import com.anonymous.zanithresort.DTOs.ServiceDTO;
 import jakarta.persistence.*;
