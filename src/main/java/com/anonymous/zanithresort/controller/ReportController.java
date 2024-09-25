@@ -15,15 +15,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anonymous.zanithresort.exception.ReporteException;
+import com.anonymous.zanithresort.model.Hotels;
 import com.anonymous.zanithresort.model.Report;
+import com.anonymous.zanithresort.service.HotelService;
 import com.anonymous.zanithresort.service.IReportService;
 
 
 @RestController // http://localhost:8085/Zanith
-@RequestMapping("/Zanith/v1")
+@RequestMapping("Zanith/v1")
 public class ReportController {
 
     private final Logger logger = LoggerFactory.getLogger(ReportController.class);
@@ -31,6 +34,8 @@ public class ReportController {
     @Autowired
     private IReportService  iReportService;
 
+    @Autowired
+    private HotelService hotelService;
 
     @GetMapping("/listReport")
     public List <Report> listReport(){
@@ -40,10 +45,17 @@ public class ReportController {
     }
 
     @PostMapping("/AddReport")
-    public Report saveReport(@RequestBody Report report) {
-        logger.info("Reporte agregado");
-        return iReportService.saveReport(report);
-        
+    public ResponseEntity<?> saveReport(@RequestBody Report report, @RequestParam("hotel_id") Integer hotelId) {
+
+        Hotels hotel = hotelService.findHotel(hotelId);
+        if (hotel == null) {
+
+            return ResponseEntity.badRequest().body("Hotel no encontrado");
+        }
+        report.setHotel(hotel);
+        logger.info("Reporte agregado " + report);
+        Report savedReport = iReportService.saveReport(report);
+        return ResponseEntity.ok(savedReport);
     }
     
     @GetMapping("/FinReport/{idReport}")
@@ -71,7 +83,6 @@ public class ReportController {
         Report report = iReportService.finReport(idReport);
         if (report == null)
         throw new ReporteException("El id no existe ");
-        report.setIdHotels(ReportReceived.getIdHotels());
         report.setTipo(ReportReceived.getTipo());
         report.setFechaGeneracion(ReportReceived.getFechaGeneracion());
         report.setDescription(ReportReceived.getDescription());

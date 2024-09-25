@@ -1,10 +1,13 @@
 package com.anonymous.zanithresort.model;
 import java.io.Serializable;
+import java.util.List;
 
 import com.anonymous.zanithresort.DTOs.HotelRegisterDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,7 +26,7 @@ public class Hotels implements Serializable {
     @Id
     @Column(name = "hotel_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String hotel_id;
+    private Integer  hotel_id;
     private String name;
     private String direction;
     private int category;
@@ -41,9 +44,10 @@ public class Hotels implements Serializable {
         this.photo = img;
     }
 
-    @OneToMany
-    private Rooms rooms;
 
-    @OneToMany
-    private Event event;
+   //@OneToMany
+   // private List<Rooms> rooms;
+
+   // @OneToOne
+   //private Event event;
 }

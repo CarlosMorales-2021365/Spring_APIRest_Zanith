@@ -1,4 +1,5 @@
 package com.anonymous.zanithresort.model;
+import java.util.List;
 
 import java.io.Serializable;
 
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class User implements Serializable {
     @Id
     @Column(name = "id")
-    private String id;
+    private Integer id;
 
     @Email(message = "Ingresa Direccion de correo Valida")
     @Column(unique = true, name="email")
@@ -40,7 +41,7 @@ public class User implements Serializable {
   
 
     public User(UserRegisterDTO userDTO, String img) {
-        this.email = userDTO.getEmail();
+        this.email = userDTO.getEmail(); 
         this.username = userDTO.getUsername();
         this.password = PasswordEncrypt.encryptPassword(userDTO.getPassword());
         this.name = userDTO.getName();
@@ -51,6 +52,5 @@ public class User implements Serializable {
     }
 
 
-    @OneToMany
-    private Reservation reservation;
+
 }

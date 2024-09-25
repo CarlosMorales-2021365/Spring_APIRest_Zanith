@@ -14,4 +14,7 @@ public class AddRoomDTO implements Serializable {
     private String description;
     private String starDate;
     private String endDate;
+    private Long hotel_id;
+    private Long ids;
+
 }

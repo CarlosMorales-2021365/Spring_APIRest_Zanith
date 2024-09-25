@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ServiceDTO {
 
-    private Long id;
+    private Long ids;
 
     @NotBlank(message = "El nombre del servicio es obligatorio")
     private String name;

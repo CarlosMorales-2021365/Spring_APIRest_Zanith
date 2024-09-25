@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class HotelRegisterDTO implements Serializable {
 
-    private String hotel_id;
+    private Integer  hotel_id;
     private String name;
     private String direction;
     private int category;

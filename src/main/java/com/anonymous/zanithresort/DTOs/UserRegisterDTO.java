@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 public class UserRegisterDTO implements Serializable {
-    private String id;
+    private Integer id;
     @NotBlank(message = "Correo Obligatorio")
     @Email(message = "Ingresa direccion de correo valida")
     private String email;

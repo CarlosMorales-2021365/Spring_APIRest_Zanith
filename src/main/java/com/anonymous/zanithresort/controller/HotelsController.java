@@ -3,7 +3,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.io.IOException;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +46,9 @@ public class HotelsController {
         hotel2.forEach(hotels -> logger.info(hotels.toString()));
         return hotel2;
     }
+
+
+
     @PostMapping("/AddHotel")
     public ResponseEntity<?> addHotel(
             @RequestPart("photo") MultipartFile profilePicture,
@@ -66,7 +68,8 @@ public class HotelsController {
             String profilePhoto =uploadRersut.get("url").toString();
             String img = profilePhoto.substring(profilePhoto.indexOf("perfiles/"));
             Hotels hotels = new Hotels(addhoteldto, img);
-            hotels.setHotel_id(UUID.randomUUID().toString());
+            Integer nextId = hotelService.getNextId();  
+            hotels.setHotel_id(nextId);
             hotelService.saveHotel(hotels);
             logger.info("Hotel agregado exitosamente");
             res.put("Mensaje", "Hotel agregado exitosamente");
@@ -89,6 +92,9 @@ public class HotelsController {
             return new ResponseEntity<>(res, HttpStatus.SERVICE_UNAVAILABLE);
         }
     }
+
+
+
     @GetMapping("/FindHotel/{hotel_id}")
     public ResponseEntity<Hotels> findHotel(@PathVariable Integer hotel_id) {
         Hotels hotels = iHotelService.findHotel(hotel_id);

@@ -17,7 +17,7 @@ public class Service implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long ids;
 
     @NotBlank(message = "El nombre del servicio es obligatorio")
     private String name;

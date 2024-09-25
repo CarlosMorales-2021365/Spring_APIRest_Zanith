@@ -15,7 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.anonymous.zanithresort.DTOs.UserRegisterDTO;
+import com.anonymous.zanithresort.exception.UserException;
 import com.anonymous.zanithresort.model.User;
 import com.anonymous.zanithresort.service.CloudinaryService;
 import com.anonymous.zanithresort.service.UserService;
@@ -44,7 +48,7 @@ public class UserController {
 
     @PostMapping("/ListaUsuarios") 
     public ResponseEntity<?> ListaUsuarios(
-            @RequestPart("profilePicture") MultipartFile profilePicture,
+            @RequestPart("urlProfilePhoto") MultipartFile profilePicture,
             @Valid @ModelAttribute UserRegisterDTO userDto,
             BindingResult result) {
 
@@ -60,11 +64,12 @@ public class UserController {
 
         try {
             logger.info("Enviando Archivado a Cloudinary");
-            Map<String, Object> uploadResult = cloudinaryService.uploadImg(profilePicture, "profiles");
+            Map<String, Object> uploadResult = cloudinaryService.uploadImg(profilePicture, "perfiles");
             String profilePhoto = uploadResult.get("url").toString();
-            String img = profilePhoto.substring(profilePhoto.indexOf("profiles/"));
+            String img = profilePhoto.substring(profilePhoto.indexOf("perfiles/"));
             User user = new User(userDto, img);
-            user.setId(UUID.randomUUID().toString());
+            Integer nextId = userService.getNextId();
+            user.setId(nextId);
             userService.save(user);
             logger.info("Usuario agregado exitosamente");
             res.put("Mensaje", "Usuario agregado exitosamente");
@@ -87,6 +92,18 @@ public class UserController {
             return new ResponseEntity<>(res, HttpStatus.SERVICE_UNAVAILABLE);
         }
     }
+
+    @DeleteMapping("/DeleteUser/{id}")
+    public ResponseEntity<Map<String, Boolean>> delete(@PathVariable Integer id) {
+        User user = userService.find(id);
+        if (user == null)
+            throw new UserException("el empleado no existe");
+            userService.delete(user);
+        Map<String, Boolean> respuesta = new HashMap<>();
+        respuesta.put("eliminado", true);
+        return ResponseEntity.ok(respuesta);
+    }
+
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody User user, BindingResult result) {
@@ -123,6 +140,24 @@ public class UserController {
             return new ResponseEntity<>(res, HttpStatus.SERVICE_UNAVAILABLE);
         }
     }
+
+    @PatchMapping("/UpdateUser/{id}")
+    public ResponseEntity <User> edit(@PathVariable Integer id, @RequestBody User userReceived){
+        User user = userService.find(id);
+        if (user == null)
+        throw new UserException("El id no existe ");
+        user.setPassword(PasswordEncrypt.encryptPassword(userReceived.getPassword()));
+        user.setName(userReceived.getName());
+        user.setSurname(userReceived.getSurname());
+        user.setRole(userReceived.getRole());
+        user.setPhone(userReceived.getPhone());
+        user.setUrlProfilePhoto(userReceived.getUrlProfilePhoto());
+        userService.save(user);
+        return ResponseEntity.ok(user);
+
+    }    
+
+
 
     
 }

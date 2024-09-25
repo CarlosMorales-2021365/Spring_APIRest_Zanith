@@ -1,4 +1,5 @@
 package com.anonymous.zanithresort.model;
+import java.util.List;
 
 import java.io.Serializable;
 
@@ -8,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -21,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class Rooms implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private String idRoom;
+    private Integer  idRoom;
     private String roomType;
     private double cost;
     private String capacity;
@@ -32,7 +34,7 @@ public class Rooms implements Serializable {
     private String photo;
 
 
-    public Rooms(AddRoomDTO addRoomDTO, String img){
+    public Rooms(AddRoomDTO addRoomDTO, String img, Hotels hotel){
         this.roomType = addRoomDTO.getRoomType();
         this.cost = addRoomDTO.getCost();
         this.capacity = addRoomDTO.getCapacity();
@@ -41,12 +43,14 @@ public class Rooms implements Serializable {
         this.starDate = addRoomDTO.getStarDate();
         this.endDate = addRoomDTO.getEndDate();
         this.photo = img;
+        this.hotel= hotel;
     }
 
     @ManyToOne
-    private Hotels hotels;
+    @JoinColumn(name = "hotel_id")
+    private Hotels hotel;
 
-    @OneToMany
-    private Reservation reservation;
-
+    @ManyToOne
+    @JoinColumn(name = "ids")
+    private Service service;
 }

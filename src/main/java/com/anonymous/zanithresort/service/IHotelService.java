@@ -11,4 +11,6 @@ public interface IHotelService {
     public Hotels saveHotel (Hotels hotels);
 
     public void deleteHotel(Hotels hotels);
+
+    Integer getNextId();
 }

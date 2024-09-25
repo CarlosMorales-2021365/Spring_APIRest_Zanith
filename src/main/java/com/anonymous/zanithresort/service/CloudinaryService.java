@@ -32,12 +32,11 @@ public Map<String, Object> uploadImg(MultipartFile file, String folder) throws I
 
     String fileName = newName + "_"+timeStam;
 
-    @SuppressWarnings("unchheked")
-    Map<String, Object> uploadResult = (Map<String, Object>)cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap(
-        "folder",folder,
-        "public_id" ,fileName
+    @SuppressWarnings("unchecked")
+    Map<String, Object> uploadResult = (Map<String, Object>)cloudinary.uploader().upload(file.getBytes(),ObjectUtils.asMap(
+        "folder", folder,
+        "public_id", fileName
     ));
-
     return uploadResult;
 }
 

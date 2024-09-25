@@ -27,4 +27,15 @@ return hotelRepository.findAll();
     public void deleteHotel(Hotels hotels) {
        hotelRepository.delete(hotels);
     }
+    @Override
+    public Integer getNextId() {
+        List<Hotels> hotels = listHotels();
+        if (hotels.isEmpty()) {
+            return 1; // O cualquier otro valor inicial que desees
+        }
+        return hotels.stream()
+                     .mapToInt(Hotels::getHotel_id) // Cambia esto si el método de ID es diferente
+                     .max()
+                     .orElse(0) + 1; // Incrementar el ID más alto
+    }
 }

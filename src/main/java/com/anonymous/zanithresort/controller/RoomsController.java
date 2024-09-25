@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -23,14 +22,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.anonymous.zanithresort.DTOs.AddRoomDTO;
 import com.anonymous.zanithresort.exception.RoomsException;
+import com.anonymous.zanithresort.model.Hotels;
 import com.anonymous.zanithresort.model.Rooms;
 import com.anonymous.zanithresort.service.CloudinaryService;
+import com.anonymous.zanithresort.service.HotelService;
 import com.anonymous.zanithresort.service.RoomsService;
 
 import jakarta.validation.Valid;
@@ -46,6 +48,9 @@ RoomsService RoomsService;
 @Autowired
 CloudinaryService cloudinaryService;
 
+@Autowired
+HotelService hotelService;
+
 @GetMapping("/rooms")
 
 public List<Rooms> getRoom(){
@@ -58,7 +63,9 @@ public List<Rooms> getRoom(){
 public ResponseEntity<?> addRoom(
     @RequestPart("photo") MultipartFile picture,
     @Valid @ModelAttribute AddRoomDTO addRoomDTO,
-    BindingResult result){
+    BindingResult result,
+    @RequestParam("hotel_id") Integer hotelId
+    ){
     
     Map<String, Object> res = new HashMap<>();
 
@@ -75,10 +82,19 @@ public ResponseEntity<?> addRoom(
         Map<String,Object> uploadResult = cloudinaryService.uploadImg(picture, "profiles");
         String photo = uploadResult.get("url").toString();
         String img = photo.substring(photo.indexOf("profiles/"));
-        Rooms rooms = new Rooms(addRoomDTO,img);
-        rooms.setIdRoom(UUID.randomUUID().toString());
+
+        Hotels hotel = hotelService.findHotel(hotelId); 
+
+        if (hotel == null) {
+            res.put("Mensaje", "Hotel no encontrado");
+            return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
+        }
+
+        Rooms rooms = new Rooms(addRoomDTO,img,hotel);
+        Integer nextId = RoomsService.getNextId();
+        rooms.setIdRoom(nextId);
         RoomsService.saveRooms(rooms);
-        logger.info("La habitacion fue agregada exitosamente");
+        logger.info("Habitación añadida con ID: {}", rooms.getIdRoom());
         res.put("Mensaje", "La habitacion fue agregada exitosamente");
         res.put("Habitacion", rooms);
         return new ResponseEntity<>(res,HttpStatus.CREATED);
@@ -105,7 +121,7 @@ public ResponseEntity<?> addRoom(
 
 
 @GetMapping("/buscar/{idRoom}")
- public ResponseEntity<Rooms> findRooms(@PathVariable Long idRoom){
+ public ResponseEntity<Rooms> findRooms(@PathVariable Integer idRoom){
     Rooms rooms = RoomsService.findRooms(idRoom);
     if(rooms==null)
     throw new RoomsException("No se encontro la habitacion");
@@ -114,7 +130,7 @@ public ResponseEntity<?> addRoom(
 
 
 @PutMapping("/editrooms/{idRoom}")
-public ResponseEntity <Rooms> editRoom(@PathVariable Long idRoom,@RequestBody Rooms roomReceived){
+public ResponseEntity <Rooms> editRoom(@PathVariable Integer idRoom,@RequestBody Rooms roomReceived){
     Rooms rooms = RoomsService.findRooms(idRoom);
     if(rooms == null)
     throw new RoomsException("El id recibido no exixte");

@@ -15,14 +15,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anonymous.zanithresort.exception.EventException;
 import com.anonymous.zanithresort.model.Event;
+import com.anonymous.zanithresort.model.Hotels;
+import com.anonymous.zanithresort.service.HotelService;
 import com.anonymous.zanithresort.service.IEventService;
 
 @RestController //http://localhost:8085/Zanith
-@RequestMapping("/Events/v1")
+@RequestMapping("Events/v1")
 public class EventController {
     
     private static final Logger logger = LoggerFactory.getLogger(EventController.class);
@@ -30,6 +33,10 @@ public class EventController {
     @Autowired
     private IEventService iEventService;
 
+
+    @Autowired
+    private HotelService hotelService; 
+    
     @GetMapping("/ListEvents")
     public List<Event> listEvent() {
         var event2 = iEventService.listEvent();
@@ -48,9 +55,15 @@ public class EventController {
     }
 
     @PostMapping("/AddEvents") 
-    public Event addEvents(@RequestBody Event event){
-        logger.info("Evento agregado" + event);
-        return iEventService.addEvent(event);
+    public ResponseEntity<?> addEvents(@RequestBody Event event, @RequestParam("hotel_id") Integer hotelId){
+        Hotels hotel = hotelService.findHotel(hotelId); // Busca el hotel
+        if (hotel == null) {
+            return ResponseEntity.badRequest().body("Hotel no encontrado");
+        }
+        event.setHotel(hotel); // Establece el hotel en el evento
+        logger.info("Evento agregado: " + event);
+        Event savedEvent = iEventService.addEvent(event);
+        return ResponseEntity.ok(savedEvent);
 
     }
 

@@ -21,7 +21,7 @@ public class RoomsService implements IRoomsService {
     }
 
     @Override
-    public Rooms findRooms(Long idRoom) {
+    public Rooms findRooms(Integer idRoom) {
         Rooms rooms = roomsRepository.findById(idRoom).orElse(null);
         return rooms;
     }
@@ -29,6 +29,19 @@ public class RoomsService implements IRoomsService {
     @Override
     public Rooms saveRooms(Rooms rooms) {
        return roomsRepository.save(rooms);
+    }
+
+    @Override
+    public Integer getNextId() {
+        List<Rooms> rooms = listRooms();
+        if (rooms.isEmpty()) {
+            return 1; // O cualquier otro valor inicial que desees
+        }
+        return rooms.stream()
+                    .mapToInt(Rooms::getIdRoom)
+                    .max()
+                    .orElse(0) + 1; // Incrementar el ID más alto
+
     }
 
     

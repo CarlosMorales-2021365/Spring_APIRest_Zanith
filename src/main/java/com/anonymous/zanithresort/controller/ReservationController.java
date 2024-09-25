@@ -15,11 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anonymous.zanithresort.exception.ReservationException;
 import com.anonymous.zanithresort.model.Reservation;
+import com.anonymous.zanithresort.model.Rooms;
+import com.anonymous.zanithresort.model.User;
+import com.anonymous.zanithresort.service.HotelService;
 import com.anonymous.zanithresort.service.IReservationService;
+import com.anonymous.zanithresort.service.RoomsService;
+import com.anonymous.zanithresort.service.UserService;
 
 @RestController // http://localhost:8086/Zanith
 
@@ -31,6 +37,12 @@ public class ReservationController {
     @Autowired
     private IReservationService iReservationService;
 
+    @Autowired
+    private RoomsService roomsService;
+
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/ListReservation")
     public List<Reservation> listReservation() {
         List<Reservation> reservations = iReservationService.listReservation();
@@ -39,9 +51,25 @@ public class ReservationController {
     }
 
     @PostMapping("/AddReservation")
-    public Reservation saveReservation(@RequestBody Reservation reservation) {
-        logger.info("Reservación agregada");
-        return iReservationService.saveReservation(reservation);
+    public ResponseEntity<?> saveReservation(@RequestBody Reservation reservation, @RequestParam("rooms_id") Integer roomsId, @RequestParam("user_id") Integer userId) {
+
+        Rooms room = roomsService.findRooms(roomsId); 
+        User user = userService.find(userId); 
+
+        if (room == null) {
+            return ResponseEntity.badRequest().body("Habitación no encontrada");
+        }
+    
+        if (user == null) {
+            return ResponseEntity.badRequest().body("Usuario no encontrado");
+        }
+
+        reservation.setRooms(room); 
+        reservation.setUser(user);   
+
+        logger.info("Reservación agregada: " + reservation);
+        Reservation savedReservation = iReservationService.saveReservation(reservation);
+        return ResponseEntity.ok(savedReservation);
     }
 
     @GetMapping("/FindReservation/{id}")

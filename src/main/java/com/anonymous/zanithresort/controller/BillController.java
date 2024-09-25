@@ -15,11 +15,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anonymous.zanithresort.exception.BillException;
 import com.anonymous.zanithresort.model.Bill;
+import com.anonymous.zanithresort.model.Reservation;
+import com.anonymous.zanithresort.service.BillService;
 import com.anonymous.zanithresort.service.IBillService;
+import com.anonymous.zanithresort.service.IReservationService;
+import com.anonymous.zanithresort.service.RoomsService;
 
 
 @RestController // http://localhost:8085/Zanith
@@ -32,6 +37,10 @@ public class BillController {
     @Autowired
     private IBillService iBillService;
 
+    @Autowired
+    private IReservationService iReservationService;
+
+
     @GetMapping("/listBill")
     public List <Bill> listBill(){
         var billl = iBillService.listBill();
@@ -40,10 +49,20 @@ public class BillController {
     }
 
     @PostMapping("/AddFactura")
-    public Bill saveBill(@RequestBody Bill bill) {
-        logger.info("Factura agregada");
-        return iBillService.saveBill(bill);
-        
+    public ResponseEntity<?> saveBill(@RequestBody Bill bill, @RequestParam("reservati_id") Integer reservationId) {
+    
+        // Buscar la reserva asociada
+        Reservation reservation = iReservationService.findReservation(reservationId); 
+    
+        if (reservation == null) {
+            return ResponseEntity.badRequest().body("Reservación no encontrada");
+        }
+    
+        bill.setReservation(reservation);
+    
+        logger.info("Factura agregada: " + bill);
+        Bill savedBill = iBillService.saveBill(bill);
+        return ResponseEntity.ok(savedBill);
     }
     
     @GetMapping("/FinFactura/{idbill}")
@@ -71,7 +90,6 @@ public class BillController {
         Bill bill = iBillService.finBill(idbill);
         if (bill == null)
         throw new BillException("El id no existe ");
-        bill.setIdreservation(billReceived.getIdreservation());
         bill.setAmountTotal(billReceived.getAmountTotal());
         bill.setDescription(billReceived.getDescription());
         bill.setDateEmission(billReceived.getDateEmission());

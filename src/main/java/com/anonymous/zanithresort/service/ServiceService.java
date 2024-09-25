@@ -19,8 +19,8 @@ public class ServiceService {
     }
 
     // Obtener un servicio por ID
-    public Optional<Service> getServiceById(Long id) {
-        return serviceRepository.findById(id);
+    public Optional<Service> getServiceById(Long ids) {
+        return serviceRepository.findById(ids);
     }
 
     // Crear un nuevo servicio
@@ -29,8 +29,8 @@ public class ServiceService {
     }
 
     // Actualizar un servicio existente
-    public Optional<Service> updateService(Long id, Service serviceDetails) {
-        return serviceRepository.findById(id).map(service -> {
+    public Optional<Service> updateService(Long ids, Service serviceDetails) {
+        return serviceRepository.findById(ids).map(service -> {
             service.setName(serviceDetails.getName());
             service.setCost(serviceDetails.getCost());
             service.setDescription(serviceDetails.getDescription());
@@ -39,8 +39,8 @@ public class ServiceService {
     }
 
     // Eliminar un servicio
-    public boolean deleteService(Long id) {
-        return serviceRepository.findById(id).map(service -> {
+    public boolean deleteService(Long ids) {
+        return serviceRepository.findById(ids).map(service -> {
             serviceRepository.delete(service);
             return true;
         }).orElse(false);
