@@ -27,8 +27,8 @@ public class Event implements Serializable {
     private String State_Event;
     private int capacity_Event;
 
-    //@ManyToOne
-    //private Hotel hotel;
+    @ManyToOne
+    private Hotels hotels;
     
 
 }

@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,4 +40,10 @@ public class Hotels implements Serializable {
         this.average_price =hotelRegisterDto.getAverage_price();
         this.photo = img;
     }
+
+    @OneToMany
+    private Rooms rooms;
+
+    @OneToMany
+    private Event event;
 }
